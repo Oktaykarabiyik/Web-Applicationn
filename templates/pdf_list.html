@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>pdf listele</h2>
+ 
+<p>
+    <a href="{% url 'upload_pdf' %}" class="btn btn-primary"> PDF YÜKLE </a>
+</p>
+
+<table class="table mb-0">
+    <thead>
+        <tr>
+            <th>Dowload</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Pdf_kayit in pdfs %}
+        <tr>
+            <td>
+                <a href="{{ Pdf_kayit.pdf.url }}" class="btn btn-primary btn-sm" target="_blank" >
+                   Dowload PDF 
+                </a>
+            </td>
+            <td>
+                <form method="post" action="{% url 'delete_pdf' Pdf_kayit.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
